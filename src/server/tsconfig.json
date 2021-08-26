@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "outDir": "../../lib",
+    "module": "commonjs",
+    "lib": [
+      "es5"
+    ],
+    "target": "es2015",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "sourceMap": false,
+    "types": ["node"]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

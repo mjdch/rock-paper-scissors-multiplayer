@@ -1,0 +1,30 @@
+html {
+  background-image: linear-gradient(90deg, #33b7e2, #9297ff);
+}
+
+body {
+  background: unset;
+}
+
+.app {
+  color: white;
+  margin: 3px 3px 3px 3px;
+
+  h1, h2, h3 {
+    text-align: center;
+  }
+
+  &-username-controls {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+
+    & > input {
+      width: 70%
+    }
+  }
+}
+
