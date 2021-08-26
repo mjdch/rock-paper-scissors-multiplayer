@@ -1,14 +1,21 @@
-import { Server } from "colyseus";
 import { GameRoom } from "./rooms/GameRoom";
 import express from "express";
+import { createServer } from "http";
+import { Server } from "@colyseus/core";
+import { WebSocketTransport } from "@colyseus/ws-transport"
 
-const gameServer = new Server();
+export const PORT = Number(process.env.PORT) || 8080;
 
-const STATICSERVER_PORT = 8080;
-const GAMESERVER_PORT = 8888;
-const HOST = '0.0.0.0';
+const app = express();
+app.use(express.static('dist'));
 
+const server = createServer(app); // create the http server manually
 
+const gameServer = new Server({
+    transport: new WebSocketTransport({
+        server // provide the custom server for `WebSocketTransport`
+    })
+});
 
 gameServer.define("GameRoom", GameRoom)
     .on("create", (room) => console.log("room created:", room.roomId))
@@ -16,15 +23,5 @@ gameServer.define("GameRoom", GameRoom)
     .on("join", (room, client) => console.log(client.id, "joined", room.roomId))
     .on("leave", (room, client) => console.log(client.id, "left", room.roomId));
 
-
-if(!process.env.DEV){
-    const app = express();
-    app.use(express.static('dist'))
-    app.listen(STATICSERVER_PORT, HOST);
-    console.log('Static server listening on: ', STATICSERVER_PORT, HOST);
-}
-
-gameServer.listen(GAMESERVER_PORT, HOST);
-console.log('Game Server listening on:', GAMESERVER_PORT, HOST)
-
+gameServer.listen(PORT, '0.0.0.0');
 

@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -31,8 +32,13 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
-    plugins: [new HtmlWebpackPlugin({
-            template: "src/client/index.html"
-        }
-    )],
+    plugins: [
+        new HtmlWebpackPlugin({
+                template: "src/client/index.html"
+            }
+        ),
+        new webpack.DefinePlugin({
+            'process.env.PORT': JSON.stringify(process.env.PORT || '8080')
+        }),
+    ],
 };

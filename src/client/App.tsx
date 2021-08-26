@@ -8,6 +8,8 @@ import {GameRoom} from "./components/GameRoom/GameRoom";
 
 import './App.scss';
 
+// @ts-ignore
+const PORT = process.env.PORT || 8888;
 const HOST = (window.document.location.host || "localhost").replace(/:.*/, '');
 
 const App = () => {
@@ -18,7 +20,7 @@ const App = () => {
     useEffect(() => {
         const setUpClient = async () => {
             if (!client) {
-                const client = await new Colyseus.Client('ws://' + HOST + ':8888');
+                const client = await new Colyseus.Client('ws://' + HOST + `:${PORT}`);
                 setClient(client);
             }
         }
