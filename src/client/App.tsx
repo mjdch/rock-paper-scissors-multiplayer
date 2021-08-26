@@ -20,7 +20,7 @@ const App = () => {
     useEffect(() => {
         const setUpClient = async () => {
             if (!client) {
-                const client = await new Colyseus.Client('wss://' + HOST + `:${PORT}`);
+                const client = await new Colyseus.Client('wss://' + HOST);
                 setClient(client);
             }
         }
