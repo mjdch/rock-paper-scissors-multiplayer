@@ -3,6 +3,8 @@ import { Server } from 'colyseus';
 import { ROOM_NAME } from './consts';
 import { GameRoom } from './gameRoom';
 
+export { ROOM_NAME, TOPICS } from './consts';
+
 const port = parseInt(process.env.PORT) || 3000;
 const gameServer = new Server();
 

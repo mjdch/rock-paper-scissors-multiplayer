@@ -1,0 +1,20 @@
+name: Deploy client
+on:
+  workflow_run:
+    workflows: ['Build and test']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  - name: Checkout 🛎️
+    uses: actions/checkout@v3
+  - name: Install and Build
+    run: |
+      npm ci
+      cd ./packages/client
+      npm run build
+  - name: deploy
+    uses: JamesIves/github-pages-deploy-action@v4
+    with:
+      folder: packages/client/src/dist

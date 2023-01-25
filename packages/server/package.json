@@ -1,35 +1,35 @@
 {
-  "name": "@rps-game/server",
-  "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "mjdch <30183876+mjdch@users.noreply.github.com>",
-  "homepage": "https://github.com/mjdch/rock-paper-scissors-multiplayer#readme",
-  "license": "ISC",
-  "main": "lib/server.js",
-  "types": "lib/server.d.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mjdch/rock-paper-scissors-multiplayer.git"
-  },
-  "scripts": {
-    "build": "tsc",
-    "test": "node ./__tests__/@rps-game/server.test.js"
-  },
-  "bugs": {
-    "url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
-  },
-  "dependencies": {
-    "colyseus": "^0.14.13",
-    "@colyseus/schema": "1.0.45"
-  }
+	"name": "@rps-game/server",
+	"version": "0.0.0",
+	"description": "> TODO: description",
+	"author": "mjdch <30183876+mjdch@users.noreply.github.com>",
+	"homepage": "https://github.com/mjdch/rock-paper-scissors-multiplayer#readme",
+	"license": "ISC",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"directories": {
+		"dist": "dist",
+		"test": "__tests__"
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mjdch/rock-paper-scissors-multiplayer.git"
+	},
+	"scripts": {
+		"build": "tsc",
+		"test": "node ./__tests__/@rps-game/server.test.js"
+	},
+	"bugs": {
+		"url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
+	},
+	"dependencies": {
+		"colyseus": "^0.14.13",
+		"@colyseus/schema": "1.0.45"
+	}
 }

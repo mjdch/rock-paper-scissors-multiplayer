@@ -1,0 +1,20 @@
+.room-list {
+  &-no-room {
+    text-align: center;
+  }
+
+  &-controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1vh;
+
+    & > button {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
