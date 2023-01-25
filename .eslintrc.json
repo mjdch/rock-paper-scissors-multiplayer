@@ -45,5 +45,5 @@
 			}
 		]
 	},
-	"ignorePatterns": ["lib"]
+	"ignorePatterns": ["lib", "dist"]
 }

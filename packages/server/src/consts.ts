@@ -2,7 +2,7 @@ export const TOPICS = {
 	START_GAME: 'startGame',
 	MAKE_DECISION: 'makeDecision',
 	PLAYERS_LIST: 'playersList',
-	REQUEST_PLAYER_LIST: 'requestPlayers',
+	REQUEST_PLAYER_LIST: 'requestPlayersList',
 	RESULTS: 'results',
 };
 
