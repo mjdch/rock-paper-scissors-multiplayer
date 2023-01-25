@@ -22,7 +22,7 @@
     "url": "git+https://github.com/mjdch/rock-paper-scissors-multiplayer.git"
   },
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "test": "node ./__tests__/client.test.js"
   },
   "bugs": {
