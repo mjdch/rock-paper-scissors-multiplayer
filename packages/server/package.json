@@ -22,10 +22,14 @@
     "url": "git+https://github.com/mjdch/rock-paper-scissors-multiplayer.git"
   },
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "test": "node ./__tests__/@rps-game/server.test.js"
   },
   "bugs": {
     "url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
+  },
+  "dependencies": {
+    "colyseus": "^0.14.13",
+    "@colyseus/schema": "1.0.45"
   }
 }

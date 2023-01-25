@@ -5,6 +5,7 @@
 		"packages/*"
 	],
 	"devDependencies": {
+		"@types/jest": "^29.4.0",
 		"@types/node": "^18.11.18",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
@@ -19,10 +20,14 @@
 		"eslint-plugin-prettier": "^4.2.1",
 		"lerna": "^6.4.1",
 		"prettier": "^2.8.3",
+		"ts-jest": "^29.0.5",
 		"typescript": "^4.9.4"
 	},
 	"scripts": {
+		"build": "lerna run build",
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"lint:fix": "eslint . --fix",
+		"test": "jest",
+		"test:coverage": "jest --collect-coverage"
 	}
 }
