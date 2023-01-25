@@ -1,5 +1,5 @@
-const start =() =>  {
-    console.log('Hello from Server')
-}
+const start = () => {
+	console.log('Hello from Server');
+};
 
 start();

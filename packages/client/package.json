@@ -23,7 +23,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "node ./__tests__/@rps-game/client.test.js"
+    "test": "node ./__tests__/client.test.js"
   },
   "bugs": {
     "url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
