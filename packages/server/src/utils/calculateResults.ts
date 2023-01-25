@@ -18,9 +18,9 @@ const findIndex = (results: GameResults, playerKey: string): number => {
 };
 
 const compareDecision = (decisionA: Decision, decisionB: Decision): number => {
-	if (decisionA === '✋' && decisionB === '🪨') return 1;
-	if (decisionA === '✂️' && decisionB === '✋') return 1;
-	if (decisionA === '🪨' && decisionB === '✂️') return 1;
+	if (decisionA === 'paper' && decisionB === 'rock') return 1;
+	if (decisionA === 'scissors' && decisionB === 'paper') return 1;
+	if (decisionA === 'rock' && decisionB === 'scissors') return 1;
 	return 0;
 };
 

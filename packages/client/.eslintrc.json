@@ -1,4 +1,49 @@
 {
-	"extends": ["airbnb-typescript"],
-	"plugins": ["react"]
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"airbnb-typescript",
+		"plugin:prettier/recommended",
+		"plugin:import/recommended"
+	],
+	"overrides": [],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"project": ["./tsconfig.json"]
+	},
+	"plugins": ["@typescript-eslint", "react"],
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/ban-types": [
+			"error",
+			{
+				"extendDefaults": true,
+				"types": {
+					"{}": false
+				}
+			}
+		],
+		"import/no-extraneous-dependencies": ["off"],
+		"object-shorthand": "error",
+		"prettier/prettier": [
+			"error",
+			{
+				"printWidth": 80,
+				"endOfLine": "lf",
+				"singleQuote": true,
+				"tabWidth": 2,
+				"indentStyle": "space",
+				"useTabs": true,
+				"trailingComma": "es5"
+			}
+		]
+	},
+	"ignorePatterns": ["lib", "dist"]
 }

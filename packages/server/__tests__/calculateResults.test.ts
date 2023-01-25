@@ -9,20 +9,20 @@ describe('calculateResults', () => {
 	const player1SessionId = 'sessionId1';
 	const player1Username = 'username1';
 	const player1 = new Player(player1Username);
-	player1.decisions = ['✋', '✂️', '🪨', '✋', '✂️'];
+	player1.decisions = ['paper', 'scissors', 'rock', 'paper', 'scissors'];
 
 	//Player 2
 	const player2SessionId = 'sessionId2';
 	const player2Username = 'username2';
 	const player2 = new Player(player2Username);
-	player2.decisions = ['🪨', '✋', '✂️', '🪨', '✋'];
+	player2.decisions = ['rock', 'paper', 'scissors', 'rock', 'paper'];
 
 	//Player 3
 	const player3SessionId = 'sessionId3';
 	const player3Username = 'username3';
 	const player3 = new Player(player3Username);
 
-	player3.decisions = ['🪨', '✂️', '✂️', '🪨', '✋'];
+	player3.decisions = ['rock', 'scissors', 'scissors', 'rock', 'paper'];
 
 	gameState.players
 		.set(player1SessionId, player1)

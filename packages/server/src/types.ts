@@ -1,4 +1,4 @@
-export type Decision = '✋' | '✂️' | '🪨';
+export type Decision = 'paper' | 'scissors' | 'rock';
 
 type RoundResult = {
 	index: number;

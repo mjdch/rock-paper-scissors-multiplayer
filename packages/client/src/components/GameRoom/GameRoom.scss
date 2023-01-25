@@ -1,0 +1,13 @@
+.game-room {
+	&-decision-wrapper {
+		display: flex;
+		flex-direction: row;
+		align-content: center;
+		justify-content: space-evenly;
+	}
+
+	&-decision {
+		font-size: 10vh;
+		cursor: pointer;
+	}
+}
