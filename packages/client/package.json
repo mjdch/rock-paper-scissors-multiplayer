@@ -23,7 +23,8 @@
 	},
 	"scripts": {
 		"start": "webpack serve --open --config ./webpack/webpack.dev.js",
-		"build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.js"
+		"build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.js",
+    "deploy:ghpages": "gh-pages -d dist"
 	},
 	"bugs": {
 		"url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
@@ -33,6 +34,7 @@
 		"copy-webpack-plugin": "^11.0.0",
 		"css-loader": "^6.7.3",
 		"fork-ts-checker-webpack-plugin": "^7.3.0",
+		"gh-pages": "^5.0.0",
 		"html-webpack-plugin": "^5.5.0",
 		"mini-css-extract-plugin": "^2.7.2",
 		"node-sass": "^8.0.0",
