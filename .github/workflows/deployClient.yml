@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write
 jobs:
-  - name: Checkout 🛎️
+  - name: Checkout
     uses: actions/checkout@v3
   - name: Install and Build
     run: |
