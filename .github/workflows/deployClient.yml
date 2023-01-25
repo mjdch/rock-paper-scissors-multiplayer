@@ -17,7 +17,8 @@ jobs:
           npm ci
           cd ./packages/client
           npm run build
+          ls -al
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: packages/client/src/dist
+          folder: ./packages/client/src/dist/
