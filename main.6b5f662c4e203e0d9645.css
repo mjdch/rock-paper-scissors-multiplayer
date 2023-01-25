@@ -1,0 +1,8 @@
+.room-list-no-room{text-align:center}.room-list-controls{display:flex;flex-direction:row;flex-wrap:wrap;align-content:center;justify-content:center;align-items:center;padding-top:1vh}.room-list-controls>button{margin-left:10px;margin-right:10px}
+
+.game-room-decision-wrapper{display:flex;flex-direction:row;align-content:center;justify-content:space-evenly}.game-room-decision{font-size:10vh;cursor:pointer}
+
+html{background-image:linear-gradient(90deg, #33b7e2, #9297ff)}body{background:unset}.app{color:white;margin:3px 3px 3px 3px}.app h1,.app h2,.app h3{text-align:center}.app-username-controls{display:flex;flex-direction:column;flex-wrap:wrap;align-content:center;justify-content:space-evenly;align-items:center}.app-username-controls>input{width:70%}
+
+
+/*# sourceMappingURL=main.6b5f662c4e203e0d9645.css.map*/
