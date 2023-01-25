@@ -17,14 +17,10 @@ jobs:
           npm ci
           cd ./packages/client
           npm run build
-          ls -al
       - name: Deploy with gh-pages
         run: |
-          ls -al
-          cd ./dist
-          ls -al
-          cd ..
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          cd ./packages/client
           npx gh-pages -d dist -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
