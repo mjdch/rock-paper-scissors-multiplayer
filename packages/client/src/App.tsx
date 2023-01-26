@@ -8,7 +8,7 @@ import './App.scss';
 
 const getHost = (): string => {
 	// return 'ws://localhost:3000';
-	return 'ws://rps-game.up.railway.app';
+	return 'wss://rps-game.up.railway.app';
 };
 
 const App = () => {
