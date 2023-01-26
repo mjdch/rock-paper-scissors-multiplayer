@@ -7,7 +7,7 @@ import { GameRoom } from './components/GameRoom/GameRoom';
 import './App.scss';
 
 const getHost = (): string => {
-	if (process.env.WEBPACK_SERVE) return 'ws://localhost:3000';
+	// return 'ws://localhost:3000';
 	return 'ws://rps-game.up.railway.app';
 };
 
