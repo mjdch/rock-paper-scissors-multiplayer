@@ -6,7 +6,10 @@ import { GameRoom } from './components/GameRoom/GameRoom';
 
 import './App.scss';
 
-// const HOST = (window.document.location.host || 'localhost').replace(/:.*/, '');
+const getHost = (): string => {
+	if (process.env.WEBPACK_SERVE) return 'ws://localhost:3000';
+	return 'ws://rps-game.up.railway.app';
+};
 
 const App = () => {
 	const [username, setUsername] = useState<string>(null);
@@ -16,7 +19,7 @@ const App = () => {
 	useEffect(() => {
 		const setUpClient = async () => {
 			if (!client) {
-				const colyseusClient = new Client('ws://localhost:3000');
+				const colyseusClient = new Client(getHost());
 				setClient(colyseusClient);
 			}
 		};
