@@ -15,6 +15,8 @@ gameServer
 	.on('join', (room, client) => console.log(client.id, 'joined', room.roomId))
 	.on('leave', (room, client) => console.log(client.id, 'left', room.roomId));
 
+console.log('Starting backend server');
+
 gameServer.listen(port, '0.0.0.0');
 
 gameServer.listen(port);
