@@ -49,6 +49,7 @@ export const calculateResults = (game: GameState): GameResults => {
 		game.players.forEach((v1, k1) => {
 			let playerRoundPoints = 0;
 
+			// Compare each player with each player in single round
 			game.players.forEach((v2, k2) => {
 				if (k1 !== k2) {
 					playerRoundPoints += compareDecision(
@@ -62,20 +63,26 @@ export const calculateResults = (game: GameState): GameResults => {
 				roundWinnerPoints = playerRoundPoints;
 			}
 
-			const roundWinner =
-				playerRoundPoints > 0 && playerRoundPoints >= roundWinnerPoints;
-
-			if (roundWinner) {
-				userPoints[k1].points += 1;
-			}
 			const playerRoundResult = {
 				userId: k1,
 				username: v1.username,
 				decision: v1.decisions[i],
 				roundPoints: playerRoundPoints,
-				winner: roundWinner,
 			};
 			roundsResult[i].push(playerRoundResult);
+		});
+
+		// Check who won round and sum total points
+		roundsResult[i].forEach((pr, idx) => {
+			const winner = pr.roundPoints > 0 && pr.roundPoints >= roundWinnerPoints;
+			roundsResult[i][idx] = {
+				...pr,
+				winner,
+			};
+
+			if (winner) {
+				userPoints[pr.userId].points += 1;
+			}
 		});
 	}
 

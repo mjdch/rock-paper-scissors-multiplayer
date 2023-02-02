@@ -29,6 +29,16 @@ export class GameRoom extends Room<GameState> {
 		this.onMessage(TOPICS.REQUEST_PLAYER_LIST, () => {
 			this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 		});
+
+		this.onMessage(TOPICS.REQUEST_ROOM_RESET, () => {
+			this.state.players.forEach((p) => {
+				p.decisions = [];
+				p.ready = false;
+			});
+			this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
+			this.broadcast(TOPICS.RESULTS, null);
+			this.broadcast(TOPICS.ROOM_RESET);
+		});
 	}
 
 	onJoin(client: Client, options: GameRoomJoinOptions) {

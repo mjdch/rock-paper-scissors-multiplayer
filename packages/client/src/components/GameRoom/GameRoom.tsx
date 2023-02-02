@@ -22,8 +22,6 @@ export const GameRoom = ({ room }: Props) => {
 
 	const LIMIT = room.state.roundLimit;
 	const IS_ADMIN = room.sessionId === room.state.ownerId;
-	console.log(room);
-	console.log('IS_ADMIN', IS_ADMIN);
 
 	const acceptDecisions = (): void => {
 		console.log('Decisions', decisions);
@@ -49,7 +47,6 @@ export const GameRoom = ({ room }: Props) => {
 	};
 
 	const listenToResults = (): void => {
-		console.log('Listening to results');
 		room.onMessage(TOPICS.RESULTS, (message) => {
 			console.log('message received from server');
 			console.log(message);
@@ -58,11 +55,22 @@ export const GameRoom = ({ room }: Props) => {
 	};
 
 	const listenToReadyPlayers = (): void => {
-		console.log('Listening to players');
 		room.onMessage(TOPICS.PLAYERS_LIST, (message: PlayersListInfo) => {
 			console.log('player', message);
 			setPlayerList(message);
 		});
+	};
+
+	const listenToRoomReset = (): void => {
+		room.onMessage(TOPICS.ROOM_RESET, () => {
+			console.log('Room reset message received');
+			setDecisions([]);
+			setLock(false);
+		});
+	};
+
+	const requestRoomReset = (): void => {
+		room.send(TOPICS.REQUEST_ROOM_RESET);
 	};
 
 	const requestPlayerList = (): void => {
@@ -77,6 +85,7 @@ export const GameRoom = ({ room }: Props) => {
 		room.onMessage('test', (message) => console.log('m:', message));
 		listenToResults();
 		listenToReadyPlayers();
+		listenToRoomReset();
 		requestPlayerList();
 	}, [room]);
 
@@ -140,6 +149,7 @@ export const GameRoom = ({ room }: Props) => {
 				)}
 			</div>
 			{results && <GameResults results={results} />}
+			{results && <button onClick={requestRoomReset}>Reset room</button>}
 		</div>
 	);
 };

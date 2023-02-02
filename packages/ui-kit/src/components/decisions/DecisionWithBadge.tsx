@@ -7,7 +7,6 @@ import { Decision } from './Decision';
 
 type DecisionWithBadgeProps = {
 	decision: DecisionType;
-	number: number;
 	winner: boolean;
 };
 

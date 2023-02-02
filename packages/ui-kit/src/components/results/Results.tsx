@@ -22,7 +22,6 @@ const renderTableDataRow = (
 					<td>
 						<DecisionWithBadge
 							decision={pr.decision}
-							number={pr.roundPoints}
 							winner={pr.winner}
 						></DecisionWithBadge>
 					</td>

@@ -8,12 +8,11 @@ import './App.scss';
 import { useUsername } from './hooks/useUsername';
 
 const getHost = (): string => {
-	// return 'ws://localhost:3000';
-	return 'wss://rps-game.up.railway.app';
+	return 'ws://localhost:3000';
+	// return 'wss://rps-game.up.railway.app';
 };
 
 const App = () => {
-	// const [username, setUsername] = useState<string>(null);
 	const [username, setUsername] = useUsername();
 	const [client, setClient] = useState<Client>(null);
 	const [room, setRoom] = useState<Room>(null);
