@@ -1,24 +1,31 @@
-export type Decision = 'paper' | 'scissors' | 'rock';
+export type Decision = 'PAPER' | 'SCISSORS' | 'ROCK';
 
-type RoundResult = {
-	index: number;
-	winner: boolean;
+export type GameUsersRoundResult = {
+	userId: string;
+	username: string;
 	decision: Decision;
 	roundPoints: number;
-};
-type UserResults = {
-	id: string;
+	winner: boolean;
+}[];
+
+export type Winners = {
+	userId: string;
 	username: string;
-	rounds: RoundResult[];
+	points: number;
+}[];
+
+export type GameResults = {
+	rounds: GameUsersRoundResult[];
+	userPoints: Record<string, { points: number; username: string }>;
+	winners: Winners;
 };
 
-export type GameResults = UserResults[];
-
-export type ReadyPlayerInfo = Array<{
+export type PlayersListInfo = Array<{
 	username: string;
 	ready: boolean;
+	isAdmin: boolean;
 }>;
 
-export type GameRoomOptions = {
+export type GameRoomJoinOptions = {
 	username: string;
 };

@@ -1,41 +1,44 @@
 import { Room } from 'colyseus';
 import type { Client } from 'colyseus';
 import { calculateResults } from './utils/calculateResults';
-import { generateReadyPlayers } from './utils/generateReadyPlayer';
-import { GameRoomOptions } from './types';
+import { generatePlayersList } from './utils/generatePlayersList';
+import { GameRoomJoinOptions } from './types';
 import { TOPICS } from './consts';
 import { Player } from './player';
 import { GameState } from './gameState';
 
 export class GameRoom extends Room<GameState> {
-	onCreate() {
-		this.setState(new GameState());
+	onCreate(options) {
+		this.setState(new GameState(options.roundLimit));
+		this.setMetadata({ roundLimit: options.roundLimit });
 
 		this.onMessage(TOPICS.MAKE_DECISION, (client, data) => {
 			const player = this.state.players.get(client.sessionId);
 			player.decisions = data;
 			player.ready = true;
 			console.log('State', JSON.stringify(this.state));
-			this.broadcast(TOPICS.PLAYERS_LIST, generateReadyPlayers(this.state));
+			this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 		});
 
 		this.onMessage(TOPICS.START_GAME, () => {
+			this.setPrivate(true);
 			const results = calculateResults(this.state);
 			this.broadcast(TOPICS.RESULTS, results);
 		});
 
 		this.onMessage(TOPICS.REQUEST_PLAYER_LIST, () => {
-			this.broadcast(TOPICS.PLAYERS_LIST, generateReadyPlayers(this.state));
+			this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 		});
 	}
 
-	onJoin(client: Client, options: GameRoomOptions) {
+	onJoin(client: Client, options: GameRoomJoinOptions) {
+		if (this.state.players.size === 0) this.state.ownerId = client.sessionId;
 		this.state.players.set(client.sessionId, new Player(options.username));
-		this.broadcast(TOPICS.PLAYERS_LIST, generateReadyPlayers(this.state));
+		this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 	}
 
 	onLeave(client: Client): void | Promise<void> {
 		this.state.players.delete(client.sessionId);
-		this.broadcast(TOPICS.PLAYERS_LIST, generateReadyPlayers(this.state));
+		this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 	}
 }

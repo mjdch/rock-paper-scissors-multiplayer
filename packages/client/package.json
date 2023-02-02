@@ -24,15 +24,14 @@
 	"scripts": {
 		"start": "webpack serve --open --config ./webpack/webpack.dev.js",
 		"build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.js",
-    "deploy:ghpages": "gh-pages -d dist"
+		"deploy:ghpages": "gh-pages -d dist"
 	},
 	"bugs": {
 		"url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
 	},
 	"devDependencies": {
-		"clean-webpack-plugin": "^4.0.0",
-		"copy-webpack-plugin": "^11.0.0",
 		"css-loader": "^6.7.3",
+		"file-loader": "^6.2.0",
 		"fork-ts-checker-webpack-plugin": "^7.3.0",
 		"gh-pages": "^5.0.0",
 		"html-webpack-plugin": "^5.5.0",
@@ -48,6 +47,7 @@
 	},
 	"dependencies": {
 		"@rps-game/server": "^0.0.0",
+		"@rps-game/ui-kit": "^0.0.0",
 		"@types/react": "^18.0.27",
 		"@types/react-dom": "^18.0.10",
 		"colyseus.js": "^0.14.13",

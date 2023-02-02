@@ -1,38 +1,54 @@
 import { GameState } from '../gameState';
-import { GameResults, Decision } from '../types';
-
-const initResultsObject = (game: GameState): GameResults => {
-	const results: GameResults = [];
-	game.players.forEach((v, k) => {
-		results.push({
-			id: k,
-			username: v.username,
-			rounds: [],
-		});
-	});
-	return results;
-};
-
-const findIndex = (results: GameResults, playerKey: string): number => {
-	return results.findIndex((ur) => ur.id === playerKey);
-};
+import { Decision, GameResults, Winners } from '../types';
 
 const compareDecision = (decisionA: Decision, decisionB: Decision): number => {
-	if (decisionA === 'paper' && decisionB === 'rock') return 1;
-	if (decisionA === 'scissors' && decisionB === 'paper') return 1;
-	if (decisionA === 'rock' && decisionB === 'scissors') return 1;
+	if (decisionA === 'PAPER' && decisionB === 'ROCK') return 1;
+	if (decisionA === 'SCISSORS' && decisionB === 'PAPER') return 1;
+	if (decisionA === 'ROCK' && decisionB === 'SCISSORS') return 1;
 	return 0;
 };
 
-export const calculateResults = (game: GameState): GameResults => {
-	const roundsNumber = game.roundLimit;
-	const results = initResultsObject(game);
+const prepareTotalPointsObject = (gameState: GameState) => {
+	const userPoints = {};
+	gameState.players.forEach((v, k) => {
+		userPoints[k] = {
+			username: v.username,
+			points: 0,
+		};
+	});
+	return userPoints;
+};
 
-	for (let i = 0; i < roundsNumber; i++) {
+const findWinners = (
+	userPoints: Record<string, { points: number; username: string }>
+): Winners => {
+	const winners = [];
+	const highestValue = Math.max(
+		...Object.values(userPoints).map((u) => u.points)
+	);
+	for (const [key, value] of Object.entries(userPoints)) {
+		if (value.points === highestValue) {
+			winners.push({
+				userId: key,
+				username: value.username,
+				points: value.points,
+			});
+		}
+	}
+	return winners;
+};
+
+export const calculateResults = (game: GameState): GameResults => {
+	const roundsResult = [];
+	const userPoints = prepareTotalPointsObject(game);
+
+	for (let i = 0; i < game.roundLimit; i++) {
+		roundsResult.push([]);
 		let roundWinnerPoints = 0;
 
 		game.players.forEach((v1, k1) => {
 			let playerRoundPoints = 0;
+
 			game.players.forEach((v2, k2) => {
 				if (k1 !== k2) {
 					playerRoundPoints += compareDecision(
@@ -46,15 +62,28 @@ export const calculateResults = (game: GameState): GameResults => {
 				roundWinnerPoints = playerRoundPoints;
 			}
 
+			const roundWinner =
+				playerRoundPoints > 0 && playerRoundPoints >= roundWinnerPoints;
+
+			if (roundWinner) {
+				userPoints[k1].points += 1;
+			}
 			const playerRoundResult = {
-				index: i,
+				userId: k1,
+				username: v1.username,
 				decision: v1.decisions[i],
 				roundPoints: playerRoundPoints,
-				winner: playerRoundPoints >= roundWinnerPoints,
+				winner: roundWinner,
 			};
-			const index = findIndex(results, k1);
-			results[index].rounds.push(playerRoundResult);
+			roundsResult[i].push(playerRoundResult);
 		});
 	}
-	return results;
+
+	const winners = findWinners(userPoints);
+
+	return {
+		rounds: roundsResult,
+		userPoints,
+		winners,
+	};
 };

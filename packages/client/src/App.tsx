@@ -5,6 +5,7 @@ import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
 
 import './App.scss';
+import { useUsername } from './hooks/useUsername';
 
 const getHost = (): string => {
 	// return 'ws://localhost:3000';
@@ -12,7 +13,8 @@ const getHost = (): string => {
 };
 
 const App = () => {
-	const [username, setUsername] = useState<string>(null);
+	// const [username, setUsername] = useState<string>(null);
+	const [username, setUsername] = useUsername();
 	const [client, setClient] = useState<Client>(null);
 	const [room, setRoom] = useState<Room>(null);
 
@@ -28,7 +30,7 @@ const App = () => {
 
 	return (
 		<div className="app">
-			<h1>Rock, paper, scissors</h1>
+			{!room && <h1>Rock, paper, scissors</h1>}
 			{!room && (
 				<div className="form-group app-username-controls">
 					<label className="form-label" htmlFor="username">
@@ -39,6 +41,7 @@ const App = () => {
 						onChange={(event) => setUsername(event.target.value)}
 						id="username"
 						type="text"
+						value={username}
 						name="username"
 					/>
 				</div>

@@ -1,45 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import type { Room } from 'colyseus.js';
 import { GameResults } from '../GameResults/GameResults';
+import {
+	PlayerList as PlayerListUI,
+	Decision as DecisionUI,
+} from '@rps-game/ui-kit';
 
 import './GameRoom.scss';
-import { ReadyPlayerInfo, Decision } from '@rps-game/server/src/types';
+import { PlayersListInfo, Decision } from '@rps-game/server/src/types';
 import { TOPICS } from '@rps-game/server/src/consts';
-import { mapDecisionToEmoji } from '../utils/mapDecisionToEmoji';
 
 type Props = {
 	room: Room;
 };
 
-const renderPlayersList = (readyPlayers: ReadyPlayerInfo) => {
-	const renderBadge = (ready: boolean) => {
-		if (ready)
-			return <span className="badge bg-success rounded-pill">Ready</span>;
-		return <span className="badge bg-primary rounded-pill">Not Ready</span>;
-	};
-
-	return (
-		<ul className="list-group mb-1">
-			{readyPlayers.map((player) => (
-				<li
-					key={player.username}
-					className="list-group-item d-flex justify-content-between align-items-center"
-				>
-					{player.username}
-					{renderBadge(player.ready)}
-				</li>
-			))}
-		</ul>
-	);
-};
-
 export const GameRoom = ({ room }: Props) => {
 	const [decisions, setDecisions] = useState<Decision[]>([]);
-	const [readyPlayers, setReadyPlayers] = useState<ReadyPlayerInfo>([]);
-	const [results, setResults] = useState([]);
+	const [playerList, setPlayerList] = useState<PlayersListInfo>([]);
+	const [results, setResults] = useState(null);
 	const [lock, setLock] = useState(false);
 
-	const LIMIT = 5;
+	const LIMIT = room.state.roundLimit;
+	const IS_ADMIN = room.sessionId === room.state.ownerId;
+	console.log(room);
+	console.log('IS_ADMIN', IS_ADMIN);
 
 	const acceptDecisions = (): void => {
 		console.log('Decisions', decisions);
@@ -75,9 +59,9 @@ export const GameRoom = ({ room }: Props) => {
 
 	const listenToReadyPlayers = (): void => {
 		console.log('Listening to players');
-		room.onMessage(TOPICS.PLAYERS_LIST, (message: ReadyPlayerInfo) => {
+		room.onMessage(TOPICS.PLAYERS_LIST, (message: PlayersListInfo) => {
 			console.log('player', message);
-			setReadyPlayers(message);
+			setPlayerList(message);
 		});
 	};
 
@@ -86,7 +70,7 @@ export const GameRoom = ({ room }: Props) => {
 	};
 
 	const everyoneReady = (): boolean => {
-		return readyPlayers.every((p) => p.ready);
+		return playerList.every((p) => p.ready);
 	};
 
 	useEffect(() => {
@@ -99,32 +83,36 @@ export const GameRoom = ({ room }: Props) => {
 	return (
 		<div>
 			<h1>Room: {room.id}</h1>
-			{renderPlayersList(readyPlayers)}
-			<div className="card mb-3">
-				<h3 className="card-header">Select:</h3>
-				<div className="card-body">
-					<div className="game-room-decision-wrapper">
-						<div
-							onClick={() => pushToDecisions('paper')}
-							className="game-room-decision"
-						>
-							{mapDecisionToEmoji('paper')}
-						</div>
-						<div
-							onClick={() => pushToDecisions('scissors')}
-							className="game-room-decision"
-						>
-							{mapDecisionToEmoji('scissors')}
-						</div>
-						<div
-							onClick={() => pushToDecisions('rock')}
-							className="game-room-decision"
-						>
-							{mapDecisionToEmoji('rock')}
+			<PlayerListUI players={playerList} />
+			{!lock && (
+				<div className="card mb-3">
+					<h3 className="card-header">Select:</h3>
+					<div className="card-body">
+						<div className="game-room-decision-wrapper">
+							<div
+								onClick={() => pushToDecisions('PAPER')}
+								className="game-room-decision"
+							>
+								<DecisionUI decision="PAPER" />
+							</div>
+							<div
+								onClick={() => pushToDecisions('SCISSORS')}
+								className="game-room-decision"
+							>
+								<DecisionUI decision="SCISSORS" />
+							</div>
+							<div
+								onClick={() => pushToDecisions('ROCK')}
+								className="game-room-decision"
+							>
+								<DecisionUI decision="ROCK" />
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			)}
+			{lock && !IS_ADMIN && <h2>Wait for admin 👑 to start game</h2>}
+			{everyoneReady() && IS_ADMIN && <h2>Everyone ready start game</h2>}
 			<div className="card mb-3">
 				<h3 className="card-header">
 					Decisions {decisions.length}/{LIMIT}:
@@ -133,23 +121,25 @@ export const GameRoom = ({ room }: Props) => {
 					<div className="game-room-decision-wrapper">
 						{decisions.map((d, idx) => (
 							<div key={idx} className="game-room-decision">
-								{mapDecisionToEmoji(d)}
+								<DecisionUI decision={d} />
 							</div>
 						))}
 					</div>
 				</div>
 			</div>
 			<div className="room-list-controls">
-				<button
-					disabled={!everyoneReady()}
-					type="button"
-					className="btn btn-danger"
-					onClick={() => startGame()}
-				>
-					Start
-				</button>
+				{IS_ADMIN && (
+					<button
+						disabled={!everyoneReady()}
+						type="button"
+						className="btn btn-danger"
+						onClick={() => startGame()}
+					>
+						Start
+					</button>
+				)}
 			</div>
-			{results.length > 0 && <GameResults results={results} />}
+			{results && <GameResults results={results} />}
 		</div>
 	);
 };

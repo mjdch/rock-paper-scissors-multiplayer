@@ -1,20 +1,29 @@
 .room-list {
-  &-no-room {
-    text-align: center;
-  }
+	&-no-room {
+		text-align: center;
+	}
 
-  &-controls {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1vh;
+	&-controls {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		padding-top: 1vh;
 
-    & > button {
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-  }
+		& > button {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+	}
+}
+
+.room-list-create-room-controls {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
 }

@@ -1,0 +1,22 @@
+.room-list-table {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.room-list-table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.room-list-table th,
+td {
+	text-align: center;
+	padding: 5px;
+}
+
+.room-list-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

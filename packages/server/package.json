@@ -5,7 +5,7 @@
 	"author": "mjdch <30183876+mjdch@users.noreply.github.com>",
 	"homepage": "https://github.com/mjdch/rock-paper-scissors-multiplayer#readme",
 	"license": "ISC",
-	"main": "dist/index.js",
+	"main": "./src/index.js",
 	"types": "dist/index.d.ts",
 	"directories": {
 		"dist": "dist",
@@ -23,13 +23,17 @@
 	},
 	"scripts": {
 		"build": "tsc",
+		"start": "ts-node-dev --debug --respawn ./src/index.ts",
 		"test": "node ./__tests__/@rps-game/server.test.js"
 	},
 	"bugs": {
 		"url": "https://github.com/mjdch/rock-paper-scissors-multiplayer/issues"
 	},
 	"dependencies": {
-		"colyseus": "^0.14.13",
-		"@colyseus/schema": "1.0.45"
+		"@colyseus/schema": "1.0.45",
+		"colyseus": "^0.14.13"
+	},
+	"devDependencies": {
+		"ts-node-dev": "^2.0.0"
 	}
 }

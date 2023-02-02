@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Client, Room } from 'colyseus.js';
 
 import './RoomList.scss';
+
+import { RoomList as RoomListUI } from '@rps-game/ui-kit';
 import { ROOM_NAME } from '@rps-game/server/src/consts';
 
 type Props = {
@@ -12,16 +14,17 @@ type Props = {
 
 export const RoomList = ({ client, setRoom, username }: Props) => {
 	const [roomList, setRoomList] = useState([]);
-	const [, setRoomName] = useState('');
+	const [createRoomRoundLimit, setCreateRoomRoundLimit] = useState(5);
 
 	const createRoom = (): void => {
 		client
-			.create(ROOM_NAME, { username })
+			.create(ROOM_NAME, { username, roundLimit: Number(createRoomRoundLimit) })
 			.then(setRoom)
 			.catch((e: Error) => console.error(e));
 	};
 
 	const joinRoom = (id: string): void => {
+		if (!username) return window.alert('set username');
 		client.joinById(id, { username }).then((room: Room) => setRoom(room));
 	};
 
@@ -43,48 +46,26 @@ export const RoomList = ({ client, setRoom, username }: Props) => {
 		return () => clearInterval(interval);
 	}, []);
 
+	console.log('room list', roomList);
+
 	return (
 		<div>
-			<h2>Room List:</h2>
-			{roomList.length === 0 && (
-				<div className="room-list-no-room">No rooms available.</div>
-			)}
-			{roomList.length > 0 && (
-				<table className="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">Id</th>
-							<th scope="col">Name</th>
-							<th scope="col">Owner</th>
-							<th scope="col">Players</th>
-						</tr>
-					</thead>
-					<tbody>
-						{roomList.map((room) => (
-							<tr onClick={() => joinRoom(room.roomId)}>
-								<th scope="row">{room.roomId}</th>
-								<th>{room.name}</th>
-								<th>{}</th>
-								<td>{room.clients}</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			)}
+			<RoomListUI rooms={roomList} onJoin={joinRoom} />
 			<div className="room-list-controls" style={{ flexDirection: 'column' }}>
-				<div className="form-group app-username-controls">
-					<label className="form-label" htmlFor="username">
-						Room Name:{' '}
-					</label>
+				<div className="room-list-create-room-controls">
 					<input
-						className="form-control"
-						onChange={(event) => setRoomName(event.target.value)}
-						id="roomname"
-						type="text"
-						name="roomname"
+						type="range"
+						min="1"
+						max="15"
+						step="1"
+						className="slider"
+						value={createRoomRoundLimit}
+						onChange={({ target: { value } }) =>
+							setCreateRoomRoundLimit(Number(value))
+						}
+						id="myRange"
 					/>
-				</div>
-				<div>
+					<p>Round limit: {createRoomRoundLimit}</p>
 					<button
 						disabled={!username}
 						type="button"
@@ -92,6 +73,7 @@ export const RoomList = ({ client, setRoom, username }: Props) => {
 						onClick={() => createRoom()}
 					>
 						Create
+						{!username && ' (Set Username) '}
 					</button>
 				</div>
 			</div>
