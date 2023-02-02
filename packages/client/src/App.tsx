@@ -8,8 +8,8 @@ import './App.scss';
 import { useUsername } from './hooks/useUsername';
 
 const getHost = (): string => {
-	return 'ws://localhost:3000';
-	// return 'wss://rps-game.up.railway.app';
+	// return 'ws://localhost:3000';
+	return 'wss://rps-game.up.railway.app';
 };
 
 const App = () => {
