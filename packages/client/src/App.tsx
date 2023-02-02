@@ -3,6 +3,7 @@ import { Client, Room } from 'colyseus.js';
 
 import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
+import { getRoomIdFromSearchParams } from './utils/getRoomIdFromSearchParams';
 
 import './App.scss';
 import { useUsername } from './hooks/useUsername';
@@ -26,6 +27,19 @@ const App = () => {
 		};
 		setUpClient();
 	}, []);
+
+	useEffect(() => {
+		const roomId = getRoomIdFromSearchParams();
+		if (client && roomId) {
+			console.log('JOINING ROOM: ', getRoomIdFromSearchParams());
+			client
+				.joinById(roomId, { username })
+				.then((r: Room) => setRoom(r))
+				.catch((e: Error) => console.error(e));
+		}
+	}, [client]);
+
+	console.log('rerender app');
 
 	return (
 		<div className="app">
