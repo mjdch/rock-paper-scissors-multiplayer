@@ -9,6 +9,7 @@ import { GameState } from './gameState';
 
 export class GameRoom extends Room<GameState> {
 	onCreate(options) {
+		this.setPrivate(options.privateRoom);
 		this.setState(new GameState(options.roundLimit));
 		this.setMetadata({ roundLimit: options.roundLimit });
 

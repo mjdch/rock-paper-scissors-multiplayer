@@ -29,7 +29,6 @@ const App = () => {
 
 	return (
 		<div className="app">
-			{!room && <h1>Rock, paper, scissors</h1>}
 			{!room && (
 				<div className="form-group app-username-controls">
 					<label className="form-label" htmlFor="username">
