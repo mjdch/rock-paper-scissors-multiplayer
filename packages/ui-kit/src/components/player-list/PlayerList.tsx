@@ -3,7 +3,7 @@ import { PlayersListInfo } from '@rps-game/server/src/types';
 
 import './PlayerList.css';
 
-import { Badge } from '../badge/Badge';
+import { Badge } from '../badge';
 import { LoaderDots } from '../loader-dots/LoaderDots';
 
 type PlayerListProps = {
