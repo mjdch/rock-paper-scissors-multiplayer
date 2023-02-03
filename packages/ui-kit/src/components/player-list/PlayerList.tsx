@@ -3,7 +3,7 @@ import { PlayersListInfo } from '@rps-game/server/src/types';
 
 import './PlayerList.css';
 
-import { Badge } from '../Badge/Badge';
+import { Badge } from '../badge/Badge';
 import { LoaderDots } from '../loader-dots/LoaderDots';
 
 type PlayerListProps = {
@@ -13,8 +13,8 @@ type PlayerListProps = {
 export const PlayerList: React.FC<PlayerListProps> = ({ players }) => {
 	return (
 		<div>
-			<h1>Player list</h1>
-			<div className="player-list-main-container ">
+			<div className="player-list-main-container">
+				<p>Player list:</p>
 				{players.map((p) => (
 					<div key={p.username} className="player-list-item-container">
 						<div>

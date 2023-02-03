@@ -50,6 +50,10 @@ export class GameRoom extends Room<GameState> {
 
 	onLeave(client: Client): void | Promise<void> {
 		this.state.players.delete(client.sessionId);
+
+		const nextAdminKey = this.state.players.entries().next().value[0];
+		this.state.ownerId = nextAdminKey;
+
 		this.broadcast(TOPICS.PLAYERS_LIST, generatePlayersList(this.state));
 	}
 }

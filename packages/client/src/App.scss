@@ -1,7 +1,39 @@
 * {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+body {
+	margin: 0;
+	color: rgb(50, 50, 50);
+}
 
 html {
 	background: #f9f6f2;
+}
+
+.app {
+	margin-bottom: 50px;
+}
+
+.app-main-container {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+.app-main-description-container {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.app-main-description-logo-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
 }

@@ -16,10 +16,12 @@ export const Modal: React.ElementType<ModalProps> = ({
 	return (
 		<div className="modal">
 			<div className="modal-content">
-				{children}
 				{showCloseButton && (
-					<button onClick={() => setIsOpen(false)}>Close</button>
+					<span className="modal-close" onClick={() => setIsOpen(false)}>
+						&times;
+					</span>
 				)}
+				<div className="modal-content-container">{children}</div>
 			</div>
 		</div>
 	);

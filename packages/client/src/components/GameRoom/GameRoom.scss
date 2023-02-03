@@ -7,9 +7,61 @@
 		gap: 1px;
 		justify-content: flex-start;
 	}
+}
 
-	&-decision {
-		font-size: 10vh;
-		cursor: pointer;
-	}
+.game-room-select-decision-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.game-room-select-decision-container img {
+	width: 80px;
+}
+
+.gamer-room-share-link {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.gamer-room-share-link button {
+	border: none;
+	color: white;
+	padding: 0.5em 0.5em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	background-color: #f8f8f8;
+	color: black;
+	border: 2px solid #008cba;
+}
+
+.gamer-room-share-link button:hover {
+	background-color: #008cba;
+	color: white;
+}
+
+.alert-wait-start-game {
+	text-align: center;
+}
+
+.alert-admin-start-game {
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
 }

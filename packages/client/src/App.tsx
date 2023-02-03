@@ -4,7 +4,8 @@ import { Client, Room } from 'colyseus.js';
 import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
 import { RoomCreator } from './components/RoomCreator/RoomCreator';
-import { Logo } from '@rps-game/ui-kit';
+import { Header } from './components/Header/Header';
+import { Logo, Button, Modal, Spinner } from '@rps-game/ui-kit';
 import {
 	getRoomIdFromSearchParams,
 	clearQueryParamsFromUrl,
@@ -22,6 +23,7 @@ const App = () => {
 	const [username, setUsername] = useUsername();
 	const [client, setClient] = useState<Client>(null);
 	const [room, setRoom] = useState<Room>(null);
+	const [showDirectConnectModal, setDirectConnectModal] = useState(false);
 
 	useEffect(() => {
 		const setUpClient = async () => {
@@ -36,73 +38,63 @@ const App = () => {
 	useEffect(() => {
 		const roomId = getRoomIdFromSearchParams();
 		if (client && roomId) {
-			console.log('JOINING ROOM FROM URL: ', getRoomIdFromSearchParams());
+			setDirectConnectModal(true);
 			client
 				.joinById(roomId, { username })
 				.then((r: Room) => setRoom(r))
 				.catch((e: Error) => console.error(e))
 				.finally(() => {
 					clearQueryParamsFromUrl();
+					setDirectConnectModal(false);
 				});
 		}
 	}, [client]);
 
 	return (
 		<div className="app">
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					flexWrap: 'nowrap',
-					alignItems: 'center',
-					justifyContent: 'center',
-					marginBottom: '10px',
-				}}
-			>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'row',
-						flexWrap: 'nowrap',
-						alignContent: 'center',
-						justifyContent: 'center',
-						alignItems: 'center',
-						gap: '5px',
-					}}
-				>
-					<Logo width={'30%'} />
-					<div>
-						<h1>RPS Game</h1>
-						<p>
-							Rock, Paper, Scissors multplayer game for 2+ players. Free for all
-							formula.
-						</p>
+			<Header
+				setUsername={setUsername}
+				username={username}
+				disableChange={!!room}
+			/>
+			<div className="app-main-container">
+				<div className="app-main-description-container">
+					<div className="app-main-description-logo-container">
+						<Logo width={'30%'} />
+						<div>
+							<h1>RPS Game</h1>
+							<p>
+								Rock, Paper, Scissors multplayer game for 2+ players. Free for
+								all formula.
+							</p>
+						</div>
 					</div>
+					<Button
+						customStyles={{ width: '40%' }}
+						buttonType="GREEN"
+						label={'Game Rules'}
+					></Button>
 				</div>
-				<button style={{ width: '50%' }}>Game Rules</button>
+				{client && !room && (
+					<>
+						<RoomList client={client} setRoom={setRoom} username={username} />
+						<RoomCreator
+							username={username}
+							setRoom={setRoom}
+							client={client}
+						/>
+					</>
+				)}
+				{room && <GameRoom room={room} />}
 			</div>
-			{!room && (
-				<div className="form-group app-username-controls">
-					<label className="form-label" htmlFor="username">
-						Username:{' '}
-					</label>
-					<input
-						className="form-control"
-						onChange={(event) => setUsername(event.target.value)}
-						id="username"
-						type="text"
-						value={username}
-						name="username"
-					/>
-				</div>
+			{showDirectConnectModal && (
+				<Modal setIsOpen={setDirectConnectModal} showCloseButton={false}>
+					<div>
+						<Spinner></Spinner>
+						<p>Joining room</p>
+					</div>
+				</Modal>
 			)}
-			{client && !room && (
-				<>
-					<RoomList client={client} setRoom={setRoom} username={username} />
-					<RoomCreator username={username} setRoom={setRoom} client={client} />
-				</>
-			)}
-			{room && <GameRoom room={room} />}
 		</div>
 	);
 };

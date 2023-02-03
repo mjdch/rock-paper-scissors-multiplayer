@@ -1,5 +1,6 @@
 .player-list-main-container {
 	border: none;
+	border-radius: 1em;
 	box-shadow: inset 1px 1px rgba(255, 255, 255, 0.2),
 		inset -1px -1px rgba(255, 255, 255, 0.1),
 		1px 3px 24px -1px rgba(0, 0, 0, 0.15);
@@ -8,11 +9,23 @@
 		rgba(255, 255, 255, 0.3),
 		rgba(255, 255, 255, 0.2) 70%
 	);
+	padding-bottom: 1em;
+}
+
+.player-list-main-container p {
+	text-align: center;
+	margin: 0;
+	padding: 1em;
 }
 
 .player-list-item-container {
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	padding: 0.5rem 0.5rem;
+	align-items: center;
+	padding: 0.5em 1em;
+}
+
+.player-list-item-container:nth-child(even) {
+	background: rgb(255, 255, 255);
 }

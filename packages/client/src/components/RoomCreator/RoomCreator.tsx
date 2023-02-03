@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Client, Room } from 'colyseus.js';
 
 import { ROOM_NAME } from '@rps-game/server/src/consts';
-import { Spinner, Modal } from '@rps-game/ui-kit';
+import { Spinner, Modal, Button } from '@rps-game/ui-kit';
 
 import './RoomCreator.css';
 
@@ -36,19 +36,24 @@ export const RoomCreator: React.FC<RoomCreatorProps> = ({
 	};
 
 	return (
-		<div>
-			<button onClick={() => setIsOpen(true)}>Create room</button>
+		<div className="room-creator-controls">
+			<Button
+				buttonType="GREEN"
+				onClick={() => setIsOpen(true)}
+				label={'Create room'}
+			/>
 			{isOpen && (
 				<Modal setIsOpen={setIsOpen}>
 					{!loading ? (
 						<>
+							<label htmlFor="room-private">Private room</label>
 							<input
 								id="room-private"
 								type="checkbox"
 								value="false"
 								onChange={(event) => setPrivateRoom(event.target.checked)}
 							></input>
-							<label htmlFor="room-private">Private room</label>
+							<p>Round limit: {roomRoundsLimit}</p>
 							<input
 								type="range"
 								min="1"
@@ -61,16 +66,13 @@ export const RoomCreator: React.FC<RoomCreatorProps> = ({
 								}
 								id="myRange"
 							/>
-							<p>Round limit: {roomRoundsLimit}</p>
-							<button
-								disabled={!username}
-								type="button"
-								className="btn btn-success"
+
+							<Button
+								customStyles={{ marginTop: '50px' }}
+								buttonType="GREEN"
 								onClick={() => createRoom()}
-							>
-								Create
-								{!username && ' (Set Username) '}
-							</button>
+								label="Create"
+							/>
 						</>
 					) : (
 						<>

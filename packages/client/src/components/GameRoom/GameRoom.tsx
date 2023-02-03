@@ -4,11 +4,14 @@ import { GameResults } from '../GameResults/GameResults';
 import {
 	PlayerList as PlayerListUI,
 	Decision as DecisionUI,
+	Alert,
+	Button,
 } from '@rps-game/ui-kit';
 
 import './GameRoom.scss';
 import { PlayersListInfo, Decision } from '@rps-game/server/src/types';
 import { TOPICS } from '@rps-game/server/src/consts';
+import { ResultsModal } from '../ResultsModal/ResultsModal';
 
 type Props = {
 	room: Room;
@@ -19,6 +22,7 @@ export const GameRoom = ({ room }: Props) => {
 	const [playerList, setPlayerList] = useState<PlayersListInfo>([]);
 	const [results, setResults] = useState(null);
 	const [lock, setLock] = useState(false);
+	const [showResultsModal, setShowResultsModal] = useState(false);
 
 	const LIMIT = room.state.roundLimit;
 	const IS_ADMIN = room.sessionId === room.state.ownerId;
@@ -51,6 +55,7 @@ export const GameRoom = ({ room }: Props) => {
 			console.log('message received from server');
 			console.log(message);
 			setResults(message);
+			setShowResultsModal(true);
 		});
 	};
 
@@ -82,24 +87,83 @@ export const GameRoom = ({ room }: Props) => {
 	};
 
 	useEffect(() => {
-		room.onMessage('test', (message) => console.log('m:', message));
 		listenToResults();
 		listenToReadyPlayers();
 		listenToRoomReset();
 		requestPlayerList();
+
+		return () => room.removeAllListeners();
 	}, [room]);
 
 	return (
 		<div>
-			<h1>Room: {room.id}</h1>
+			<div>
+				<h2>Room: {room.id}</h2>
+				{IS_ADMIN && (
+					<div className="gamer-room-share-link">
+						Send link for invite
+						<button
+							onClick={() => {
+								const base = new URL(window.location.href);
+								base.searchParams.set('roomId', room.id);
+								navigator.clipboard.writeText(base.toString());
+							}}
+						>
+							Copy link
+						</button>
+					</div>
+				)}
+			</div>
 			<PlayerListUI players={playerList} />
+			{lock && everyoneReady() && !IS_ADMIN && !results && (
+				<Alert type={'INFO'}>
+					<p className="alert-wait-start-game">
+						⏳ Wait for game master 👑 to start game
+					</p>
+				</Alert>
+			)}
+			{lock && !everyoneReady() && !IS_ADMIN && !results && (
+				<Alert type={'INFO'}>
+					<p className="alert-wait-start-game">
+						⏳ Wait for other players to decide
+					</p>
+				</Alert>
+			)}
+			{everyoneReady() && IS_ADMIN && !results && (
+				<Alert type={'WARNING'}>
+					<div className="alert-admin-start-game">
+						<p>Everyone ready start game</p>
+						<Button
+							buttonType="GREEN"
+							onClick={() => startGame()}
+							label="Start Game"
+						/>
+					</div>
+				</Alert>
+			)}
+			<div className="card mb-3">
+				<h3 className="card-header">
+					Decisions {decisions.length}/{LIMIT}:
+				</h3>
+				<div className="card-body">
+					<div className="game-room-decision-wrapper">
+						{decisions.map((d, idx) => (
+							<div key={idx} className="game-room-decision">
+								<DecisionUI decision={d} />
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
 			{!lock && (
-				<div className="card mb-3">
-					<h3 className="card-header">Select:</h3>
-					<div className="card-body">
-						<div className="game-room-decision-wrapper">
+				<div>
+					<h3>Select:</h3>
+					<div>
+						<div className="game-room-select-decision-container">
 							<div
-								onClick={() => pushToDecisions('PAPER')}
+								onClick={() => {
+									pushToDecisions('PAPER');
+								}}
 								className="game-room-decision"
 							>
 								<DecisionUI decision="PAPER" />
@@ -120,36 +184,22 @@ export const GameRoom = ({ room }: Props) => {
 					</div>
 				</div>
 			)}
-			{lock && !IS_ADMIN && <h2>Wait for admin 👑 to start game</h2>}
-			{everyoneReady() && IS_ADMIN && <h2>Everyone ready start game</h2>}
-			<div className="card mb-3">
-				<h3 className="card-header">
-					Decisions {decisions.length}/{LIMIT}:
-				</h3>
-				<div className="card-body">
-					<div className="game-room-decision-wrapper">
-						{decisions.map((d, idx) => (
-							<div key={idx} className="game-room-decision">
-								<DecisionUI decision={d} />
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-			<div className="room-list-controls">
-				{IS_ADMIN && (
-					<button
-						disabled={!everyoneReady()}
-						type="button"
-						className="btn btn-danger"
-						onClick={() => startGame()}
-					>
-						Start
-					</button>
-				)}
-			</div>
+
 			{results && <GameResults results={results} />}
-			{results && <button onClick={requestRoomReset}>Reset room</button>}
+			{results && IS_ADMIN && (
+				<Button
+					customStyles={{ float: 'right' }}
+					buttonType="RED"
+					label="Reset room"
+					onClick={requestRoomReset}
+				/>
+			)}
+			{results && showResultsModal && (
+				<ResultsModal
+					winners={results.winners}
+					closeModal={setShowResultsModal}
+				/>
+			)}
 		</div>
 	);
 };

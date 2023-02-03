@@ -45,7 +45,7 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.(png|jpe?g|gif)$/i,
+				test: /\.(png|jpe?g|gif|mp3)$/i,
 				use: [
 					{
 						loader: 'file-loader',
@@ -64,6 +64,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
+			favicon: '../ui-kit/src/assets/rps-favicon.png'
 		}),
 		new ForkTsCheckerWebpackPlugin(),
 	],

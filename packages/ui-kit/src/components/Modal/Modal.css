@@ -14,11 +14,18 @@
 /* Modal Content */
 .modal-content {
 	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
 	border-radius: 15px;
 	border: 1px solid #888;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
 	width: 80%;
+}
+
+.modal-content-container {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -28,8 +35,9 @@
 /* The Close Button */
 .modal-close {
 	color: #aaaaaa;
-	float: right;
+	right: 10%;
 	font-size: 28px;
+	position: absolute;
 	font-weight: bold;
 }
 

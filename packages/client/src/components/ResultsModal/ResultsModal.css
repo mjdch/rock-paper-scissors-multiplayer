@@ -1,0 +1,23 @@
+.results-modal {
+	display: flex;
+	align-content: center;
+	gap: 1em;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.results-modal-winners-list h2 {
+  margin: 0
+}
+
+.results-modal-winners-list {
+}
+
+.results-modal-prize {
+  font-size: 60px
+}
+
+.results-modal-winner-card {
+}

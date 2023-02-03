@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button';
 
 import './RoomList.css';
 
@@ -19,7 +20,7 @@ type RoomListProps = {
 export const RoomList: React.FC<RoomListProps> = ({ rooms, onJoin }) => {
 	return (
 		<>
-			<h1>Room List</h1>
+			<h2>Room List</h2>
 			<table className={'room-list-table'}>
 				<thead>
 					<tr>
@@ -36,7 +37,16 @@ export const RoomList: React.FC<RoomListProps> = ({ rooms, onJoin }) => {
 							<td>{room.metadata.roundLimit}</td>
 							<td>{room.clients}</td>
 							<td>
-								<button onClick={() => onJoin(room.roomId)}>Join</button>
+								<Button
+									customStyles={{
+										fontSize: '16px',
+										padding: '5px 15px',
+										borderRadius: '1em',
+									}}
+									buttonType="GREEN"
+									label="Join"
+									onClick={() => onJoin(room.roomId)}
+								/>
 							</td>
 						</tr>
 					))}

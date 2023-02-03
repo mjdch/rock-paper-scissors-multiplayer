@@ -49,18 +49,20 @@ export const Results: React.FC<ResultsProps> = ({ results }) => {
 	return (
 		<div className="results">
 			<>
-				<h1>Results</h1>
-				<table className={'room-list-table'}>
-					<thead>
-						<tr>
-							<th>Round no.</th>
-							{Object.values(results.userPoints).map((u) => (
-								<th>{u.username}</th>
-							))}
-						</tr>
-					</thead>
-					<tbody>{results.rounds.map(renderTableDataRow)}</tbody>
-				</table>
+				<h2>Results</h2>
+				<div style={{ width: '100%', overflowX: 'auto' }}>
+					<table className={'room-list-table'}>
+						<thead>
+							<tr>
+								<th>Round no.</th>
+								{Object.values(results.userPoints).map((u) => (
+									<th>{u.username}</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>{results.rounds.map(renderTableDataRow)}</tbody>
+					</table>
+				</div>
 			</>
 			{renderWinners(results.winners)}
 		</div>
