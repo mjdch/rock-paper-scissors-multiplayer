@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Client, Room } from 'colyseus.js';
 
 import { ROOM_NAME } from '@rps-game/server/src/consts';
-import { Spinner } from '@rps-game/ui-kit';
+import { Spinner, Modal } from '@rps-game/ui-kit';
 
 import './RoomCreator.css';
 
@@ -20,7 +20,7 @@ export const RoomCreator: React.FC<RoomCreatorProps> = ({
 	const [roomRoundsLimit, setRoomRoundsLimit] = useState(5);
 	const [privateRoom, setPrivateRoom] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [visible, setVisible] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const createRoom = (): void => {
 		setLoading(true);
@@ -37,52 +37,48 @@ export const RoomCreator: React.FC<RoomCreatorProps> = ({
 
 	return (
 		<div>
-			{visible && (
-				<div className="room-creator-modal" style={{ flexDirection: 'column' }}>
-					<div className="room-creator-modal-content">
-						{!loading ? (
-							<>
-								<input
-									id="room-private"
-									type="checkbox"
-									value="false"
-									onChange={(event) => setPrivateRoom(event.target.checked)}
-								></input>
-								<label htmlFor="room-private">Private room</label>
-								<input
-									type="range"
-									min="1"
-									max="15"
-									step="1"
-									className="slider"
-									value={roomRoundsLimit}
-									onChange={({ target: { value } }) =>
-										setRoomRoundsLimit(Number(value))
-									}
-									id="myRange"
-								/>
-								<p>Round limit: {roomRoundsLimit}</p>
-								<button
-									disabled={!username}
-									type="button"
-									className="btn btn-success"
-									onClick={() => createRoom()}
-								>
-									Create
-									{!username && ' (Set Username) '}
-								</button>
-							</>
-						) : (
-							<>
-								<Spinner />
-								<p>Creating Room...</p>
-							</>
-						)}
-					</div>
-				</div>
-			)}
-			{!visible && (
-				<button onClick={() => setVisible(true)}>Create room</button>
+			<button onClick={() => setIsOpen(true)}>Create room</button>
+			{isOpen && (
+				<Modal setIsOpen={setIsOpen}>
+					{!loading ? (
+						<>
+							<input
+								id="room-private"
+								type="checkbox"
+								value="false"
+								onChange={(event) => setPrivateRoom(event.target.checked)}
+							></input>
+							<label htmlFor="room-private">Private room</label>
+							<input
+								type="range"
+								min="1"
+								max="15"
+								step="1"
+								className="slider"
+								value={roomRoundsLimit}
+								onChange={({ target: { value } }) =>
+									setRoomRoundsLimit(Number(value))
+								}
+								id="myRange"
+							/>
+							<p>Round limit: {roomRoundsLimit}</p>
+							<button
+								disabled={!username}
+								type="button"
+								className="btn btn-success"
+								onClick={() => createRoom()}
+							>
+								Create
+								{!username && ' (Set Username) '}
+							</button>
+						</>
+					) : (
+						<>
+							<Spinner />
+							<p>Creating Room...</p>
+						</>
+					)}
+				</Modal>
 			)}
 		</div>
 	);

@@ -3,9 +3,8 @@ import { Client, Room } from 'colyseus.js';
 
 import './RoomList.scss';
 
-import { RoomList as RoomListUI } from '@rps-game/ui-kit';
+import { RoomList as RoomListUI, Modal, Spinner } from '@rps-game/ui-kit';
 import { ROOM_NAME } from '@rps-game/server/src/consts';
-import { RoomCreator } from '../RoomCreator/RoomCreator';
 
 type Props = {
 	client: Client;
@@ -15,10 +14,15 @@ type Props = {
 
 export const RoomList = ({ client, setRoom, username }: Props) => {
 	const [roomList, setRoomList] = useState([]);
+	const [joining, setJoining] = useState(false);
 
 	const joinRoom = (id: string): void => {
 		if (!username) return window.alert('set username');
-		client.joinById(id, { username }).then((room: Room) => setRoom(room));
+		setJoining(true);
+		client
+			.joinById(id, { username })
+			.then((room: Room) => setRoom(room))
+			.finally(() => setJoining(false));
 	};
 
 	const getAvailableRooms = (): void => {
@@ -42,7 +46,14 @@ export const RoomList = ({ client, setRoom, username }: Props) => {
 	return (
 		<div>
 			<RoomListUI rooms={roomList} onJoin={joinRoom} />
-			<RoomCreator username={username} setRoom={setRoom} client={client} />
+			{joining && (
+				<Modal setIsOpen={setJoining} showCloseButton={false}>
+					<div>
+						<Spinner></Spinner>
+						<p>Joining room</p>
+					</div>
+				</Modal>
+			)}
 		</div>
 	);
 };
