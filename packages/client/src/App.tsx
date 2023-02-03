@@ -5,7 +5,7 @@ import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
 import { RoomCreator } from './components/RoomCreator/RoomCreator';
 import { Header } from './components/Header/Header';
-import { Logo, Button, Modal, Spinner } from '@rps-game/ui-kit';
+import { Logo, Button, Modal, Spinner } from '@rps-game/ui-kit/src';
 import {
 	getRoomIdFromSearchParams,
 	clearQueryParamsFromUrl,
