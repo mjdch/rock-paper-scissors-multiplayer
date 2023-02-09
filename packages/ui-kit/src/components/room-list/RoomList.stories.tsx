@@ -22,16 +22,20 @@ const onJoin = (id: string) => console.log('Joined Room: ', id);
 
 const roomsMock = [
 	{
-		id: '1',
+		roomId: 'Asda12',
 		roomName: 'RoomName1',
-		rounds: 5,
-		playerCount: 12,
+		metadata: {
+			roundLimit: 10,
+		},
+		clients: 12,
 	},
 	{
-		id: '2',
+		roomId: 'chwr2137',
 		roomName: 'roomName2',
-		rounds: 3,
-		playerCount: 65,
+		metadata: {
+			roundLimit: 5,
+		},
+		clients: 65,
 	},
 ];
 

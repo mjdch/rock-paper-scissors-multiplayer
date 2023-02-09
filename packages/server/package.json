@@ -8,6 +8,7 @@
 	"main": "./src/index.js",
 	"types": "dist/index.d.ts",
 	"directories": {
+		"src": "src",
 		"dist": "dist",
 		"test": "__tests__"
 	},

@@ -5,7 +5,7 @@ import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
 import { RoomCreator } from './components/RoomCreator/RoomCreator';
 import { Header } from './components/Header/Header';
-import { Logo, Button, Modal, Spinner } from '@rps-game/ui-kit';
+import { Logo, Button, Modal, Spinner, GameRules } from '@rps-game/ui-kit';
 import {
 	getRoomIdFromSearchParams,
 	clearQueryParamsFromUrl,
@@ -24,6 +24,7 @@ const App = () => {
 	const [client, setClient] = useState<Client>(null);
 	const [room, setRoom] = useState<Room>(null);
 	const [showDirectConnectModal, setDirectConnectModal] = useState(false);
+	const [showGameRulesModal, setShowGameRulesModal] = useState(false);
 
 	useEffect(() => {
 		const setUpClient = async () => {
@@ -73,6 +74,7 @@ const App = () => {
 						customStyles={{ width: '40%' }}
 						buttonType="GREEN"
 						label={'Game Rules'}
+						onClick={() => setShowGameRulesModal(true)}
 					></Button>
 				</div>
 				{client && !room && (
@@ -93,6 +95,11 @@ const App = () => {
 						<Spinner></Spinner>
 						<p>Joining room</p>
 					</div>
+				</Modal>
+			)}
+			{showGameRulesModal && (
+				<Modal setIsOpen={setShowGameRulesModal}>
+					<GameRules />
 				</Modal>
 			)}
 		</div>

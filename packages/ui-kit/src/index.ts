@@ -8,3 +8,4 @@ export { Alert } from './components/alert';
 export { Button } from './components/button';
 export { Badge } from './components/badge';
 export { Modal } from './components/modal';
+export { GameRules } from './components/game-rules';
