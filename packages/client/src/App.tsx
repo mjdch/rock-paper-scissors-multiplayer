@@ -5,7 +5,14 @@ import { RoomList } from './components/RoomList/RoomList';
 import { GameRoom } from './components/GameRoom/GameRoom';
 import { RoomCreator } from './components/RoomCreator/RoomCreator';
 import { Header } from './components/Header/Header';
-import { Logo, Button, Modal, Spinner, GameRules } from '@rps-game/ui-kit';
+import {
+	Logo,
+	Button,
+	Modal,
+	Spinner,
+	GameRules,
+	Alert,
+} from '@rps-game/ui-kit';
 import {
 	getRoomIdFromSearchParams,
 	clearQueryParamsFromUrl,
@@ -76,6 +83,13 @@ const App = () => {
 						label={'Game Rules'}
 						onClick={() => setShowGameRulesModal(true)}
 					></Button>
+					<Alert type="DANGER">
+						<span>
+							🚨 Due to issue with losing conection on minimalizing browser on
+							mobile, please use desktop or do not close/minimalize browser
+							using mobile phone
+						</span>
+					</Alert>
 				</div>
 				{client && !room && (
 					<>
