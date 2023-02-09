@@ -18,7 +18,7 @@
 
 .modal{position:fixed;z-index:1;padding-top:50px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,0.4)}.modal-content{background-color:#fefefe;border-radius:15px;border:1px solid #888;margin:auto;padding:20px;border:1px solid #888;width:80%}.modal-content-container{background-color:#fefefe;margin:auto;padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:center}.modal-close{color:#aaaaaa;right:10%;font-size:28px;position:absolute;font-weight:bold}.modal-close:hover,.modal-close:focus{color:#000;text-decoration:none;cursor:pointer}
 
-.game-rules{padding-bottom:50px}
+.game-rules{padding-bottom:50px}.game-rules img{width:300px}
 
 .game-room-decision-wrapper{display:flex;flex-direction:row;align-content:center;flex-wrap:wrap;gap:1px;justify-content:flex-start}.game-room-select-decision-container{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-evenly;align-items:center}.game-room-select-decision-container img{width:80px}.gamer-room-share-link{display:flex;flex-direction:row;flex-wrap:nowrap;align-content:center;justify-content:flex-start;align-items:center;gap:0.5em;margin-bottom:0.5em}.gamer-room-share-link button{border:none;color:white;padding:0.5em 0.5em;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:4px 2px;transition-duration:0.4s;cursor:pointer;background-color:#f8f8f8;color:black;border:2px solid #008cba}.gamer-room-share-link button:hover{background-color:#008cba;color:white}.alert-wait-start-game{text-align:center}.alert-admin-start-game{display:flex;justify-content:space-between;align-content:center;flex-direction:row;flex-wrap:nowrap;align-items:center}
 
@@ -31,4 +31,4 @@
 *{font-family:Verdana, Geneva, Tahoma, sans-serif}body{margin:0;color:#323232}html{background:#f9f6f2}.app{margin-bottom:50px}.app-main-container{margin-left:0.5em;margin-right:0.5em}.app-main-description-container{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:center;justify-content:center;margin-bottom:10px}.app-main-description-logo-container{display:flex;flex-direction:row;flex-wrap:nowrap;align-content:center;justify-content:center;align-items:center;gap:5px}
 
 
-/*# sourceMappingURL=main.81d34d0ad519fabc9243.css.map*/
+/*# sourceMappingURL=main.6fba73b43c0dcfcd8fca.css.map*/
