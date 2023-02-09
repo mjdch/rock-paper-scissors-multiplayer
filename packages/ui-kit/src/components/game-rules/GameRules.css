@@ -1,3 +1,7 @@
 .game-rules {
 	padding-bottom: 50px;
 }
+
+.game-rules img {
+	width: 300px;
+}

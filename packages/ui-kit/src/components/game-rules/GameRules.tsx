@@ -54,16 +54,16 @@ export const GameRules = () => {
 				<p>
 					At joining to room user need to select its decision for each round:
 				</p>
-				<img width="100%" loading="lazy" src={roomDecision} />
+				<img loading="lazy" src={roomDecision} />
 				<p>
 					Once you select all decision you need to wait for all players to make
 					decisions
 				</p>
-				<img width="100%" loading="lazy" src={roomDecisionComplete} />
+				<img loading="lazy" src={roomDecisionComplete} />
 			</div>
 			<h3>Game Start</h3>
 			<p>If every player make their decision, game master 👑 can start game</p>
-			<img width="100%" loading="lazy" src={gameStart} />
+			<img loading="lazy" src={gameStart} />
 			<h3>Results</h3>
 			<p>
 				Each round is treated independently. Each player decision is calculated
@@ -71,20 +71,20 @@ export const GameRules = () => {
 				is marked as round winner, which gives 1 point in overall score.
 				Example:
 			</p>
-			<img width="100%" loading="lazy" src={round1} />
+			<img loading="lazy" src={round1} />
 			<p>
 				We have two winners for round 1. User1 and user2 as well beats user2
 				decision, so both have highest points in round 1 and both receive points
 				in overall score.
 			</p>
 			<br />
-			<img width="100%" loading="lazy" src={round2} />
+			<img loading="lazy" src={round2} />
 			<p>
 				We have no winners in round 2, so none of players receive points to
 				overall score.
 			</p>
 			<br />
-			<img width="100%" loading="lazy" src={round3} />
+			<img loading="lazy" src={round3} />
 			<p>
 				All players receive point in round 3 so each of them is marked as winner
 				of round 3, and add one point to overall score.
